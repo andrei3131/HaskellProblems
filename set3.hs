@@ -224,9 +224,36 @@ substring l l'
 merge2 :: [Int] -> [Int] -> [Int]
 merge2 [] (y : ys)       = error "Empty list"
 merge2 (x : xs) []       = error "Empty list"
-merge2 (x : xs) (y : ys) = iSort l
+merge2 (x : xs) (y : ys) = qSort l
                             where
                              l = (x : xs) ++ (y : ys)
 qSort :: [Int] -> [Int]
 qSort [] = []
 qSort (z : zs) = qSort [a | a <- zs, a <= z] ++ [z] ++ qSort [a | a <- zs, a > z] 
+
+whitespace = [' ', '\n', '\t']
+
+getWord :: String -> String
+getWord [] = []
+getWord (x : xs)
+  | elem x whitespace = []
+  | otherwise         = x : getWord xs
+
+dropWord :: String -> String
+dropWord [] = []
+dropWord (x : xs)
+  | elem x whitespace = tail (x : xs)
+  | otherwise         = dropWord xs
+                       
+dropSpace :: String -> String
+dropSpace [] = []
+dropSpace (x : xs)
+  | elem x whitespace = dropSpace xs
+  | otherwise         = (x : xs)
+
+nextWord :: String -> (String, String)
+nextWord [] = ([], [])
+nextWord (x : xs) = (getWord (x : xs), dropWord (x : xs))
+
+
+
