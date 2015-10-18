@@ -251,6 +251,9 @@ dropSpace (x : xs)
   | elem x whitespace = dropSpace xs
   | otherwise         = (x : xs)
 
+
+
+
 nextWord :: String -> (String, String)
 nextWord [] = ([], [])
 nextWord (x : xs) = (getWord (x : xs), dropWord (x : xs))
