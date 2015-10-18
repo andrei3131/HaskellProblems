@@ -260,3 +260,4 @@ nextWord (x : xs) = (getWord (x : xs), dropWord (x : xs))
 
 
 
+
