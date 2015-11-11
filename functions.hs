@@ -8,6 +8,11 @@ choose n r | r == 0    = 1
            | n == r    = 1
            | otherwise = if r == 0 then 1 else (n / r) * choose (n - 1) (r - 1)
 
+choose' :: Int -> Int -> Int
+choose' n r
+  | n == r    = 1
+  | otherwise = choose' (n - 1) r * n `div` (n - r)
+
 remainder :: Int -> Int -> Int
 remainder a b = if a < b then a else remainder (a - b) b 
                
@@ -36,7 +41,7 @@ gRatio e = gRatio' e 1
                                x = fib (k + 1)
                                y = fib k
                                z = fib (k + 2)
--- when abs () is greater or equal to e, gRatio' tries to find the next k until abs is smaller then e.
+-- when abs () is greater or equal to e, gRatio' finds the next k until abs is smaller then e.
 
 
 binary :: Int -> Int
@@ -52,15 +57,15 @@ add2 :: Int -> Int -> Int
 add2 x y | x == 0           = y
          | otherwise        = if y == 0 then x else add2 (succ x) (pred y) 
 
-larger :: Int -> Int -> Int
-larger x y = larger y x 
-             where 
-               larger' :: Int -> Int -> Int -> Int
-               larger' a b = larger (a - 1) b (k + 1) 
+--larger :: Int -> Int -> Int
+--larger x y = larger y x 
+  --           where 
+    --           larger' :: Int -> Int -> Int -> Int
+      --         larger' a b = larger (a - 1) b (k + 1) 
 
-primeFactors' :: Int -> Int -> [ Int ]
-primeFactors' n i | n `mod` i /= 0                                                                  = []
-                  | n `mod` i == 0 && (isPrime i == True) && (i < truncate (sqrt (fromIntegral n))) = i : primeFactors' (n `div` i) i
+--primeFactors' :: Int -> Int -> [ Int ]
+--primeFactors' n i | n `mod` i /= 0                                                                  = []
+  --                | n `mod` i == 0 && (isPrime i == True) && (i < truncate (sqrt (fromIntegral n))) = i : primeFactors' (n `div` i) i
 
     
                                 
