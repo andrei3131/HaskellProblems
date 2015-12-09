@@ -8,7 +8,7 @@ public class DoNotMeltTheSnowman {
     Board board = new Board(PieceUtils.charsToPieces(chars, l.getWidth(), l.getHeight()));
     while (true) {
       Result res = board.fireLaser();
-      renderBoard();
+      board.renderBoard();
       if (res == Result.HIT_TARGET) {
         System.out.println("You won!!!");
       } else if (res == Result.MELT_SNOWMAN) {

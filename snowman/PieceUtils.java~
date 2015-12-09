@@ -15,17 +15,17 @@ public class PieceUtils {
       case 'o'  : return Piece.TARGET;
       case ' '  : return Piece.EMPTY;
       case '@'  : return Piece.SNOWMAN;
-      default : return null;
+      
      } 
-     
+     return null;
   }
 
   public static Piece[][] charsToPieces(char[] description,
                                         int width, int height) {
       Piece[][] ps = new Piece[width][height];
-      for (int i = 0; i < ps.length; i++) {
-            for (int j = 0; j < ps[0].length; j++) {
-                ps[i][j] = charToPiece(description[(width * height) - 1 - j]);
+      for (int j = 0; j < ps[0].length; j++) {
+            for (int i = 0; i < ps.length; i++) {
+                ps[i][height - j - 1] = charToPiece(description[(j * width) + i]);
             }
       }
      return ps;
@@ -66,7 +66,7 @@ public class PieceUtils {
   }
 
   public static Piece addLaser(Piece p, boolean isHorizontal) {
-         if (p == Piece.EMPTY && isHorizontal) {
+    if (p == Piece.EMPTY && isHorizontal) {
             return Piece.LASER_HORIZONTAL;
          } else if (p == Piece.EMPTY && !(isHorizontal)) {
             return Piece.LASER_VERTICAL;
@@ -97,30 +97,12 @@ public class PieceUtils {
                  p == Piece.LASER_CROSSED) {
           Coordinate c5 = new Coordinate(c.getX() + xo, c.getY() + yo);
              return c5;
-      } else if (p == Piece.MIRROR_SW_NE && xo == -1 && yo == 0) {
-             Coordinate c6 = new Coordinate(c.getX() + 1, c.getY() - 1);
+      } else if (p == Piece.MIRROR_SW_NE) {
+             Coordinate c6 = new Coordinate(c.getX() + xo, c.getY() + yo);
              return c6;
-      } else if (p == Piece.MIRROR_SW_NE && xo == 1 && yo == 0) {
-             Coordinate c7 = new Coordinate(c.getX() - 1, c.getY() + 1);
+      } else if (p == Piece.MIRROR_NW_SE) {
+             Coordinate c7 = new Coordinate(c.getX() - yo, c.getY() - xo);
              return c7;
-      } else if (p == Piece.MIRROR_SW_NE && xo == 0 && yo == -1) {
-             Coordinate c8 = new Coordinate(c.getX() - 1, c.getY() );
-             return c8;
-      } else if (p == Piece.MIRROR_SW_NE && xo == 0 && yo == 1) {
-             Coordinate c9 = new Coordinate(c.getX() + 1, c.getY() - 1);
-             return c9;
-      } else if (p == Piece.MIRROR_NW_SE && xo == -1 && yo == 0) {
-             Coordinate c10 = new Coordinate(c.getX() + 1, c.getY() + 1);
-             return c10;
-      } else if (p == Piece.MIRROR_NW_SE && xo == 1 && yo == 0) {
-             Coordinate c11 = new Coordinate(c.getX() - 1, c.getY() - 1);
-             return c11;
-      } else if (p == Piece.MIRROR_NW_SE && xo == 0 && yo == -1) {
-             Coordinate c12 = new Coordinate(c.getX() + 1, c.getY() + 1);
-             return c12;
-      } else if (p == Piece.MIRROR_NW_SE && xo == 0 && yo == 1) {
-             Coordinate c13 = new Coordinate(c.getX() - 1, c.getY() - 1);
-             return c13;
       } else {
              return c;
       }

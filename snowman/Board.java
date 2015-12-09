@@ -9,26 +9,28 @@ public class Board {
   }
 
   public boolean laserEnds(Coordinate c) {
-    if (c.getX() > board.length || c.getY() > board[0].length ||
-        board[c.getX()][c.getY()] == Piece.EMPTY || 
-        board[c.getX()][c.getY()] == Piece.MIRROR_SW_NE ||                   
-        board[c.getX()][c.getY()] == Piece.MIRROR_NW_SE || 
-        board[c.getX()][c.getY()] == Piece.LASER_VERTICAL || 
-        board[c.getX()][c.getY()] == Piece.LASER_HORIZONTAL || 
-        board[c.getX()][c.getY()] == Piece.LASER_CROSSED) {
-      return true;
-   } else {
-      return false;
-   }
-
-
-
+    if (c.getX() < 0 || c.getX() >= board.length || c.getY() < 0 
+                     || c.getY() >= board[0].length) {
+        return true;
+    } else if (board[c.getX()][c.getY()] == Piece.EMPTY || 
+               board[c.getX()][c.getY()] == Piece.LASER_VERTICAL ||
+               board[c.getX()][c.getY()] == Piece.LASER_HORIZONTAL || 
+               board[c.getX()][c.getY()] == Piece.LASER_CROSSED ||
+               board[c.getX()][c.getY()] == Piece.MIRROR_SW_NE || 
+               board[c.getX()][c.getY()] == Piece.MIRROR_NW_SE	 ) {
+         return false;
+    } else {
+        return true;
+    } 
+    
   }
+ 
 
   public Result calculateResult(Coordinate c) {
-       assert (c.getX() < board.length && c.getY() < board[0].length) :
-          "Coordinate is not inside the board";
-        if (board[c.getX()][c.getY()] == Piece.TARGET) {
+       if (c.getX() < 0 || c.getX() >= board.length || c.getY() >= board[0].length ||
+               c.getY() < 0 ) {
+       return Result.MISS;
+       } else if (board[c.getX()][c.getY()] == Piece.TARGET) {
               return Result.HIT_TARGET;
         } else if (board[c.getX()][c.getY()] == Piece.SNOWMAN) {
               return Result.MELT_SNOWMAN;
@@ -46,9 +48,9 @@ public class Board {
      do {
 
         Coordinate next;
-        Piece p;
-        p = PieceUtils.addLaser(board[current.getX()][current.getY()], true);
-        next = PieceUtils.move(p, current ,xo, yo);
+        board[current.getX()][current.getY()] = 
+               PieceUtils.addLaser(board[current.getX()][current.getY()], xo != 0);
+        next = PieceUtils.move(board[current.getX()][current.getY()], current ,xo , yo);
         xo = next.getX() - current.getX();
         yo = next.getY() - current.getY();
         current = next;

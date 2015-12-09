@@ -11,13 +11,15 @@ public class DoNotMeltTheSnowman {
       board.renderBoard();
       if (res == Result.HIT_TARGET) {
         System.out.println("You won!!!");
+        break;
       } else if (res == Result.MELT_SNOWMAN) {
         System.out.println("You lost");
+        break;
       } else {
         System.out.println("introduce row and column of a piece");
         int x = IOUtil.readInt();
         int y = IOUtil.readInt();
-        Coordinate c = new Coordinate(x, y);
+        Coordinate c = new Coordinate(y, x);
         board.rotatePiece(c);       
         board.clearLasers();
       }

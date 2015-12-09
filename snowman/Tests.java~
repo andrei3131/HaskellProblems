@@ -17,15 +17,6 @@ public class Tests {
     fireLaserTests();         // Part II, b
     rotatePieceTests();       // given method
      
-    System.out.println(PieceUtils.charToPiece('/'));
-    System.out.println(PieceUtils.isEmitter(Piece.MIRROR_NW_SE));
-    System.out.println(PieceUtils.addLaser(Piece.EMITTER_WEST, false));
-
-    Coordinate c = new Coordinate(5, 3);
-    Coordinate out = PieceUtils.move(Piece.LASER_CROSSED, c, 0, -1);
-    System.out.println(out.getX());
-    System.out.println(out.getY());
-
     System.out.println("...all tests pass!");
   }
 
